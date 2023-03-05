@@ -1,5 +1,6 @@
+remote_dir = '\\desktop-ijjnup2\users\user\Desktop\Preload\img_vault';
+copyfile('\\desktop-ijjnup2\users\user\Desktop\Preload\img_vault','C:\Users\Lenovo\Desktop\img_vault\','f');
 BAM_config.img_vault = 'C:\Users\Lenovo\Desktop\img_vault\matfile_pool';
-
 BAM_config.AO_dir = 'C:\Program Files (x86)\AlphaOmega\AlphaLab SNR System SDK\MATLAB_SDK';
 BAM_data=[];
 

@@ -14,9 +14,11 @@ function [BAM_config, BAM_data, app, continue_flag] = fN_update_dataset(BAM_conf
             app.WhichDataset.Text = dataset_now;
 
             pause(0.05)
-
+            
             [BAM_config,BAM_data, app] = fN_add_buffer(BAM_config, BAM_data, app);
             BAM_data.Dataset = dataset_now;
+
+            
             continue_flag = 1;
         end
     end

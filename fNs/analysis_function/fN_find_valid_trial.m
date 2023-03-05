@@ -4,10 +4,13 @@ function[BAM_config, BAM_data, app] = fN_find_valid_trial(BAM_config, BAM_data, 
 img_ev_idx = find(BAM_data.big_ev_train.val>10000); % this is the location in event train
 stimuli_idx = BAM_data.big_ev_train.val(img_ev_idx); % this is the ev value
 onset_idx = []; offset_idx = [];
-for ii = 1:length(stimuli_idx)-1
+for ii = 1:length(stimuli_idx)-2
     if(stimuli_idx(ii+1)-stimuli_idx(ii)==10000) % diff ev value = 10000
         onset_idx  = [onset_idx, img_ev_idx(ii)];
         offset_idx = [offset_idx, img_ev_idx(ii+1)]; % the idx is the location in event train
+    elseif(stimuli_idx(ii+2)-stimuli_idx(ii)==10000) % 不优雅，就是"最近两个是ev"
+        onset_idx  = [onset_idx, img_ev_idx(ii)];
+        offset_idx = [offset_idx, img_ev_idx(ii+2)]; 
     end
 end
 onset_time = BAM_data.big_ev_time.val(onset_idx);
@@ -15,7 +18,9 @@ offset_time = BAM_data.big_ev_time.val(offset_idx);
 
 valid_img = ones(size(onset_time));
 time_thres = app.TimeSpinner.Value/100;
+pause(0.02) % necessary for edited value
 
+% repair...
 for img = 1:length(onset_idx)
     eye_within_onset = BAM_data.eye_in(onset_time(img):offset_time(img));
     valid_img(img) = sum(eye_within_onset)/length(eye_within_onset)>time_thres;

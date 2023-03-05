@@ -44,7 +44,8 @@ function [BAM_config,BAM_data, app] = fN_saving(BAM_config, BAM_data, app)
             app.delay_measurement.Text = ['miss ' ,num2str(1000*delay_time), 'ms to read data for ' ,num2str(BAM_config.save_interval), 's'];
             [BAM_config, BAM_data, app] = fN_find_valid_trial(BAM_config, BAM_data, app);
             %[BAM_data] = fN_save_file(BAM_config,BAM_data,app);
-            keyboard
+
+            [BAM_config, BAM_data, app] = fN_category_grpstat(BAM_config, BAM_data, app);
             saving_time=GetSecs;
             delay_time=0;
         end

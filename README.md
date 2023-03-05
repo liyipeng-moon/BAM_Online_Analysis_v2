@@ -15,12 +15,14 @@ Developer: LiYipeng-Moon
 
 ## Wait to fix:
 
-sync file between online-analysis PC and Monkeylogic PC
+check __fN_minium_prep__: delete processed(eye-checked) data
+
+spike sorting..
+
+~~sync file between online-analysis PC and Monkeylogic PC~~
 
 ~~__fN_pre_register_data__. check the maximum memory usage for each digital channel, especially SEG channel()~~
 
 ~~__fN_miniun_prep__. Change electrode channel initialization and storing.~~
 
 ~~adding a recenter function for eye signal~~
-
-~~seems that the unit id in bam_data.electrode is not refreshed during experiment, fixing...~~
