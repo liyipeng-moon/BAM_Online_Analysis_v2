@@ -1,5 +1,5 @@
-remote_dir = '\\desktop-ijjnup2\users\user\Desktop\Preload\img_vault';
-copyfile('\\desktop-ijjnup2\users\user\Desktop\Preload\img_vault','C:\Users\Lenovo\Desktop\img_vault\','f');
+% remote_dir = '\\desktop-ijjnup2\users\user\Desktop\Preload\img_vault';
+% copyfile('\\desktop-ijjnup2\users\user\Desktop\Preload\img_vault','C:\Users\Lenovo\Desktop\img_vault\','f');
 BAM_config.img_vault = 'C:\Users\Lenovo\Desktop\img_vault\matfile_pool';
 BAM_config.AO_dir = 'C:\Program Files (x86)\AlphaOmega\AlphaLab SNR System SDK\MATLAB_SDK';
 BAM_data=[];
@@ -40,7 +40,7 @@ BAM_config.IP.Buffered=0;
 
 %%  about saving
 BAM_config.is_saving=0;
-BAM_config.save_interval = 2;
+BAM_config.save_interval = 5;
 BAM_config.read_interval = 0.3;
 
 % add channel
@@ -69,6 +69,7 @@ BAM_config.colormap.blue = [0,0,1];
 BAM_config.colormap.white = [1,1,1];
 BAM_config.colormap.black = [0,0,0];
 BAM_config.colormap.grey = [0.3,0.3,0.3];
-
+temp = colormap('lines');
+BAM_config.colormap.category = temp(1:10:200,:);
 
 save('default_params.mat',"BAM_config","BAM_data");

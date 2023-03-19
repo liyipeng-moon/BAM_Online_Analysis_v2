@@ -8,7 +8,7 @@ for ii = 1:length(stimuli_idx)-2
     if(stimuli_idx(ii+1)-stimuli_idx(ii)==10000) % diff ev value = 10000
         onset_idx  = [onset_idx, img_ev_idx(ii)];
         offset_idx = [offset_idx, img_ev_idx(ii+1)]; % the idx is the location in event train
-    elseif(stimuli_idx(ii+2)-stimuli_idx(ii)==10000) % 不优雅，就是"最近两个是ev"
+    elseif(stimuli_idx(ii+2)-stimuli_idx(ii)==10000) % 不优雅，就是"最近两个是ev"，但是暂时先这样吧
         onset_idx  = [onset_idx, img_ev_idx(ii)];
         offset_idx = [offset_idx, img_ev_idx(ii+2)]; 
     end

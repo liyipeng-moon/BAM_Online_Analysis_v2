@@ -2,7 +2,7 @@ function [BAM_config,BAM_data, app] = fN_saving(BAM_config, BAM_data, app)
 %%
 
     %% adding channel name accaording to electrode
-    [BAM_config,BAM_data, app] = fN_add_buffer(BAM_config, BAM_data, app);
+    [BAM_config, BAM_data, app] = fN_add_buffer(BAM_config, BAM_data, app);
 
     %% generate fake variable for storing data
     % generate data capture table
@@ -20,6 +20,7 @@ function [BAM_config,BAM_data, app] = fN_saving(BAM_config, BAM_data, app)
     load_interval_measure=GetSecs;
     delay_time = 0;
     while(1)
+
             tic
             for ii = 1:length(BAM_data.interedted_channel_idx)
                 [~,pdata(ii,:),datacapture(ii)] = AO_GetChannelData(BAM_data.interedted_channel_idx(ii));
@@ -44,14 +45,18 @@ function [BAM_config,BAM_data, app] = fN_saving(BAM_config, BAM_data, app)
             app.delay_measurement.Text = ['miss ' ,num2str(1000*delay_time), 'ms to read data for ' ,num2str(BAM_config.save_interval), 's'];
             [BAM_config, BAM_data, app] = fN_find_valid_trial(BAM_config, BAM_data, app);
             %[BAM_data] = fN_save_file(BAM_config,BAM_data,app);
-
             [BAM_config, BAM_data, app] = fN_category_grpstat(BAM_config, BAM_data, app);
+            [BAM_config, BAM_data, app] = fN_plot_pipline(BAM_config, BAM_data, app);
             saving_time=GetSecs;
             delay_time=0;
         end
-        while(GetSecs-load_interval_measure<BAM_config.read_interval)    
+        while(GetSecs-load_interval_measure<BAM_config.read_interval)
+%             if(app.SavingLamp.Color==BAM_config.colormap.red)
+%                 keyboard
+%             end
         end
         load_interval_measure=GetSecs;
+
     end
 end
 
