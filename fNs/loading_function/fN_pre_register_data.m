@@ -3,7 +3,6 @@ function [BAM_config,BAM_data,app, max_save_memory] = fN_pre_register_data(BAM_c
     max_save_memory = [BAM_config.session_max_length*10];
     lfp_memory = floor(BAM_config.ai_downsample*BAM_config.session_max_length);
     spk_memory = floor([BAM_config.session_max_length * 100]);
-
     BAM_data.big_ev_train.val=nan([1,max_save_memory]);BAM_data.big_ev_train.location=1;
     BAM_data.big_ev_time.val=nan([1,max_save_memory]);BAM_data.big_ev_time.location=1;
     eye_memory = true([1, lfp_memory]);
@@ -16,13 +15,12 @@ for ii = 1:BAM_config.MaxElectrode
         BAM_data = setfield(BAM_data,field_name,temp_field);
         max_save_memory = [max_save_memory, lfp_memory];
         % spk
-        temp_field.val=nan([1,2000]);
-        temp_field.location=1;
-        field_name = ['big_spk' num2str(ii) '_train'];
-        BAM_data = setfield(BAM_data, field_name, temp_field);
-
+        for uu = 1:5
+            spk_temp_field{uu}.val=nan([1,spk_memory]);
+            spk_temp_field{uu}.location=1;
+        end
         field_name = ['big_spk' num2str(ii) '_time'];
-        BAM_data = setfield(BAM_data, field_name, temp_field);  
+        BAM_data = setfield(BAM_data, field_name, spk_temp_field);  
         max_save_memory = [max_save_memory, spk_memory];
     end
 end

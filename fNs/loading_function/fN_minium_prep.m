@@ -13,13 +13,17 @@ function [BAM_data, location_progress] = fN_minium_prep(BAM_config, BAM_data, pd
                         BAM_data.big_ev_time = fN_stack_array(BAM_data.big_ev_time, ev_time);
                         location_progress(preprocessed_channel) = BAM_data.big_ev_train.location;
                     case 'SEG'
+
                         [spike_id, spike_time] = fN_sort_seg_port(pdata(preprocessed_channel,:),datacapture(preprocessed_channel),BAM_config.SR.SEG);
                         spike_time = spike_time - BAM_config.StartingTime;
-                        field_name = ['big_spk' num2str(cc) '_train'];
-                        BAM_data = setfield(BAM_data, field_name, fN_stack_array(getfield(BAM_data, field_name), spike_id));
                         field_name = ['big_spk' num2str(cc) '_time'];
-                        BAM_data = setfield(BAM_data, field_name, fN_stack_array(getfield(BAM_data, field_name), spike_time));
-                        location_progress(preprocessed_channel) = BAM_data.big_spk1_time.location;
+                        gotten_data = getfield(BAM_data, field_name);
+                        BAM_data = setfield(BAM_data, field_name, fN_stack_array(gotten_data, {spike_time,spike_id}));
+                        max_val = 0;
+                        for ii = 1:length(gotten_data)
+                            max_val = max(max_val, gotten_data{ii}.location);
+                        end
+                        location_progress(preprocessed_channel) = max_val;
                     case 'LFP'
                         [LFP_data, LFP_time] = fN_sort_analog_data(pdata(preprocessed_channel,:),datacapture(preprocessed_channel),BAM_config.SR.LFP);
                         LFP_time = LFP_time-BAM_config.StartingTime;

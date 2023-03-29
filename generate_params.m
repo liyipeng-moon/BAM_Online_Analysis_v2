@@ -40,8 +40,8 @@ BAM_config.IP.Buffered=0;
 
 %%  about saving
 BAM_config.is_saving=0;
-BAM_config.save_interval = 5;
-BAM_config.read_interval = 0.3;
+BAM_config.save_interval = 3;
+BAM_config.read_interval = 0.2;
 
 % add channel
 BAM_config.channelidarr = [11202];
@@ -71,5 +71,7 @@ BAM_config.colormap.black = [0,0,0];
 BAM_config.colormap.grey = [0.3,0.3,0.3];
 temp = colormap('lines');
 BAM_config.colormap.category = temp(1:10:200,:);
+
+BAM_config.colormap.unit = {[0.5,0.5,0.5],[0 1 0],[1 1 0],[0 1 1],[1 0 0]};
 
 save('default_params.mat',"BAM_config","BAM_data");
