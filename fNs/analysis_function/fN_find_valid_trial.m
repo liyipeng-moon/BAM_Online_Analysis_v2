@@ -33,5 +33,6 @@ app.ValidTrialLabel.Text = show_valid_txt;
 % app.ValidTrialGauge.MajorTicks = [1, floor([0.25,0.5,0.75,1]*length(valid_img))];
 
 BAM_data.valid_onset = onset_idx(find(valid_img));
-
+BAM_data.img_idx=mod(BAM_data.big_ev_train.val(BAM_data.valid_onset), 10000);
+BAM_data.img_onset_time=BAM_data.big_ev_time.val(BAM_data.valid_onset);
 end

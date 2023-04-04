@@ -1,5 +1,6 @@
 % remote_dir = '\\desktop-ijjnup2\users\user\Desktop\Preload\img_vault';
 % copyfile('\\desktop-ijjnup2\users\user\Desktop\Preload\img_vault','C:\Users\Lenovo\Desktop\img_vault\','f');
+clear
 BAM_config.img_vault = 'C:\Users\Lenovo\Desktop\img_vault\matfile_pool';
 BAM_config.AO_dir = 'C:\Program Files (x86)\AlphaOmega\AlphaLab SNR System SDK\MATLAB_SDK';
 BAM_data=[];
@@ -55,13 +56,15 @@ for ii = 1:16
     BAM_config.channel_name{end+1} = lfp_field;
     BAM_config.channel_name{end+1} = spk_field;
 end
-
-
 %% about online analysis
 BAM_config.session_buffer = 5000; % in ms
 BAM_config.combine_interval = 0.05;
 BAM_config.session_max_length = 2 * 60 * 60; % in seconds
 BAM_config.ai_downsample = 1000; % in seconds
+BAM_config.PSTH_start = -200;
+BAM_config.PSTH_end = 500;
+BAM_config.LFP_start = -150;
+BAM_config.LFP_end = 300;
 %% color parameters
 BAM_config.colormap.red = [1,0,0];
 BAM_config.colormap.green = [0,1,0];
@@ -69,9 +72,12 @@ BAM_config.colormap.blue = [0,0,1];
 BAM_config.colormap.white = [1,1,1];
 BAM_config.colormap.black = [0,0,0];
 BAM_config.colormap.grey = [0.3,0.3,0.3];
-temp = colormap('lines');
-BAM_config.colormap.category = temp(1:10:200,:);
 
 BAM_config.colormap.unit = {[0.5,0.5,0.5],[0 1 0],[1 1 0],[0 1 1],[1 0 0]};
 
+temp = colormap('colorcube');
+color_idx = [1:16:256];
+BAM_config.colormap.category = temp(color_idx(randperm(length(color_idx))),:);
+all_image(1,:,:) = BAM_config.colormap.category;
+imshow(all_image)
 save('default_params.mat',"BAM_config","BAM_data");
