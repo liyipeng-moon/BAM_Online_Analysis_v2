@@ -25,7 +25,9 @@ Developer: LiYipeng-Moon
 4. User Defined Function
 5. Clear Channel Data
 
-
+2023.04.05\
+解决了LFP NAN的问题，调整了LFP的单位
+画图由每次的plot变成set axis的方式，这要求每一种分析方法都要预先分配axis。
 2023.04.04\
 有关事件相关的功能在每次读取数据过程中完成，因此处理时间随着试次数的变化是常数\
 每一个条件的反应都按试次数*反应的方式存了下来，可以应用于后续的更多分析\
