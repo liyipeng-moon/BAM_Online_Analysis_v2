@@ -12,16 +12,18 @@ Developer: LiYipeng-Moon
     >  generate_params.m
 
 4. Open 'BAM_Online_Loading.mlapp', once 'Let's do some science' is shown, click BLAB logo and you will start saving and analyzing.
-5. You can choose desired electrode and function, and modify some parameter in real time.
+5. You can choose desired electrode and function(add and describe it in mat file), and modify some parameter in real time.
    
 
 ## Update Journal:
 
 ### wait to add：
-1. Individual category color label (use img example?)
-2. PSTH Function
-3. User Defined Function
-4. Clear Channel Data
+
+1. Individual category color label (use img example?
+2. Switch plot function
+3. PSTH Function
+4. User Defined Function, object space?
+5. Clear Channel Data
 
 2023.04.05\
 解决了LFP NAN的问题，调整了LFP的单位\
