@@ -19,8 +19,8 @@ Developer: LiYipeng-Moon
 
 ### wait to add：
 
-1. Individual category color label (use img example?
-2. Switch plot function
+1. Individual category color label （use img example）?
+2. Switch plot function(and pre-generating axis)
 3. PSTH Function
 4. User Defined Function, object space?
 5. Clear Channel Data
@@ -28,8 +28,8 @@ Developer: LiYipeng-Moon
 2023.04.05\
 解决了LFP NAN的问题，调整了LFP的单位\
 画图由每次的plot变成set axis的方式，这要求每一种分析方法都要预先分配axis\
-LFP单位的问题\
-提前画图\
+提前画图以加快时间，忽略画图所导致的数据损失\
+简略的PSTH图\
 
 2023.04.04\
 有关事件相关的功能在每次读取数据过程中完成，因此处理时间随着试次数的变化是常数\
