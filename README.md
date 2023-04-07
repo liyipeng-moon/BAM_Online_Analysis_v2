@@ -21,9 +21,13 @@ Developer: LiYipeng-Moon
 
 1. Individual category color label （use img example）?
 2. Switch plot function(and pre-generating axis)
-3. PSTH Function
-4. User Defined Function, object space?
-5. Clear Channel Data
+3. User Defined Function, object space?
+4. Clear Channel Data
+5. refine psth
+6. Put waveform in plot function
+
+2023.04.07\
+增加了Spike波形信息的基本绘图
 
 2023.04.05\
 解决了LFP NAN的问题，调整了LFP的单位\
