@@ -20,13 +20,14 @@ Developer: LiYipeng-Moon
 ### wait to add：
 
 1. Clear Channel Data
-2. refine psth
-3. Put waveform in plot function
+2. Put waveform in plot function
+3. add time events and 'enable unit' function
 
 2023.05.27\
 增加了示意图片，使用dataset自带的图片，使用dataset指定的颜色绘图
 实现了绘图方法的改变，现在可以在Bar PSTH之间丝滑切换了
 增加了User Defined Function，使用horizontal bar作为示意
+把PSTH改成了BIN的模式
 
 2023.05.26\
 根据房间选择IP，需要制定房间
