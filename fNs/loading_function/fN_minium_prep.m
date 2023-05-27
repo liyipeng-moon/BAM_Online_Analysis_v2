@@ -13,11 +13,14 @@ function [BAM_data, location_progress] = fN_minium_prep(BAM_config, BAM_data, pd
                         BAM_data.big_ev_time = fN_stack_array(BAM_data.big_ev_time, ev_time);
                         location_progress(preprocessed_channel) = BAM_data.big_ev_train.location;
                     case 'SEG'
-
-                        [spike_id, spike_time] = fN_sort_seg_port(pdata(preprocessed_channel,:),datacapture(preprocessed_channel),BAM_config.SR.SEG);
+                        [spike_id, spike_time, spk_waveform, spk_number] = fN_sort_seg_port(pdata(preprocessed_channel,:),datacapture(preprocessed_channel),BAM_config.SR.SEG);
                         spike_time = spike_time - BAM_config.StartingTime;
                         field_name = ['big_spk' num2str(cc) '_time'];
                         gotten_data = getfield(BAM_data, field_name);
+                        if(app.DataCapture.Data{preprocessed_channel,3}<900)
+                            disp('updating wave form')
+                            BAM_data.spk_profile{cc} = fN_update_spk_waveform(spk_waveform, spk_number, BAM_data.spk_profile{cc},cc);
+                        end
                         BAM_data = setfield(BAM_data, field_name, fN_stack_array(gotten_data, {spike_time,spike_id}));
                         max_val = 0;
                         for ii = 1:length(gotten_data)

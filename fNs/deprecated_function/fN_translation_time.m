@@ -1,4 +1,6 @@
 function time_arr = fN_translation_time(timing_matrix_16, sr)
+%% this function is replaced by fN_Convert_TS
+
 %% why this function
 % the time from AO is hex16(?) format, and we need to translate 
 % it into actual time, so I did experiment to test its meaning,

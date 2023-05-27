@@ -1,8 +1,13 @@
 % remote_dir = '\\desktop-ijjnup2\users\user\Desktop\Preload\img_vault';
 % copyfile('\\desktop-ijjnup2\users\user\Desktop\Preload\img_vault','C:\Users\Lenovo\Desktop\img_vault\','f');
 clear
-BAM_config.img_vault = 'C:\Users\Lenovo\Desktop\img_vault\matfile_pool';
+
+% Location
+BAM_config.remote_img_vault = 'Z:\动物房\Stimuli\LYP\Img_vault'; % nas
+BAM_config.img_vault = 'Data\img_vault';
 BAM_config.AO_dir = 'C:\Program Files (x86)\AlphaOmega\AlphaLab SNR System SDK\MATLAB_SDK';
+
+%
 BAM_data=[];
 
 %% Electrode Setting
@@ -33,16 +38,23 @@ BAM_config.SR.LFP=1375;
 BAM_config.SR.AI=2750;
 
 %% AO IP Address
-BAM_config.IP.DSPMAC = 'A8:1B:6A:21:24:4B'; % Behind AO SnR
-BAM_config.IP.PCMAC = 'bc:6a:29:e1:49:bf';% IP of online analysis PC
+room_number = 305;
+if(room_number == 306)
+    BAM_config.IP.DSPMAC = 'A8:1B:6A:21:24:4B'; % Behind AO SnR
+    BAM_config.IP.PCMAC = 'bc:6a:29:e1:49:bf';% IP of online analysis PC
+else
+    BAM_config.IP.DSPMAC = 'A8:1B:6A:14:74:2D'; % Behind AO SnR
+    BAM_config.IP.PCMAC = 'bc:6a:29:e1:49:bf';% IP of online analysis PC
+end
 BAM_config.IP.Connected = 0;
 BAM_config.IP.DeviceFreeMode=0; % Run this when you have no AO connected
 BAM_config.IP.Buffered=0;
 
+
 %%  about saving
 BAM_config.is_saving=0;
 BAM_config.save_interval = 3;
-BAM_config.read_interval = 0.2;
+BAM_config.read_interval = 0.3;
 
 % add channel
 BAM_config.channelidarr = [11202];
@@ -61,10 +73,14 @@ BAM_config.session_buffer = 5000; % in ms
 BAM_config.combine_interval = 0.05;
 BAM_config.session_max_length = 2 * 60 * 60; % in seconds
 BAM_config.ai_downsample = 1000; % in seconds
+BAM_config.PSTH_NumBin = 20;
 BAM_config.PSTH_start = -200;
-BAM_config.PSTH_end = 500;
+BAM_config.PSTH_end = 1500;
+BAM_config.PSTH_width = (BAM_config.PSTH_end-BAM_config.PSTH_start)./BAM_config.PSTH_NumBin; % in ms
 BAM_config.LFP_start = -150;
 BAM_config.LFP_end = 300;
+BAM_config.eui_num=3;
+BAM_config.LFP_plot_down_sample_rate=10;
 %% color parameters
 BAM_config.colormap.red = [1,0,0];
 BAM_config.colormap.green = [0,1,0];
@@ -72,12 +88,8 @@ BAM_config.colormap.blue = [0,0,1];
 BAM_config.colormap.white = [1,1,1];
 BAM_config.colormap.black = [0,0,0];
 BAM_config.colormap.grey = [0.3,0.3,0.3];
-
 BAM_config.colormap.unit = {[0.5,0.5,0.5],[0 1 0],[1 1 0],[0 1 1],[1 0 0]};
 
-temp = colormap('colorcube');
-color_idx = [1:16:256];
-BAM_config.colormap.category = temp(color_idx(randperm(length(color_idx))),:);
-all_image(1,:,:) = BAM_config.colormap.category;
-imshow(all_image)
+BAM_config.bit_resolution = (2500000/(2^16))./20;
+
 save('default_params.mat',"BAM_config","BAM_data");

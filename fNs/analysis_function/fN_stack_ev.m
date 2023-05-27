@@ -19,6 +19,7 @@ function [BAM_config, BAM_data, app] = fN_stack_ev(BAM_config, BAM_data, app)
                     for ee = 1:BAM_config.MaxElectrode
                         if(BAM_config.ElectrodeUsing(ee))
                             lfp_val = getfield(BAM_data, ['big_LFP' num2str(ee) '_train']).val;
+                            
                             BAM_data.ev_LFP{ee} = fN_weighted_LFP(BAM_data.ev_LFP{ee}, lfp_val(LFP_time_series),img_idx_now);
                             spk_data = getfield(BAM_data, ['big_spk' num2str(ee) '_time']);
                             for uu = 1:5

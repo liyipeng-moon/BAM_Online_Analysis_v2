@@ -13,8 +13,14 @@ if(strcmp(mode_now, 'initial_all'))
     BAM_config.is_saving = 0;
     %% check what dataset we have
     try
+        copyfile([BAM_config.remote_img_vault, '\matfile_pool'], [BAM_config.img_vault,'\matfile_pool']);
+        copyfile([BAM_config.remote_img_vault, '\datasets'], [BAM_config.img_vault,'\datasets']);
+    catch
+        wrong_txt = 'Sync Remote Dataset Wrong';
+    end
+    try
         app.SavingLampLabel.Text='Load Dataset Success';
-        all_dataset = dir([BAM_config.img_vault,'/*mat']);
+        all_dataset = dir([BAM_config.img_vault,'\matfile_pool\*mat']);
 
         BAM_config.dataset_name = {};
         for ii = 1:length(all_dataset)
@@ -40,18 +46,17 @@ if(strcmp(mode_now, 'initial_all'))
     
     if(isempty(wrong_txt))
         % initialize success
-        app.SavingLampLabel.Text='Wait to Srart! Lets do some science!' ;
+        app.SavingLampLabel.Text='Wait to Srart:)' ;
         app.SavingLamp.Color = BAM_config.colormap.blue;
     else
         % display wrong info
         app.SavingLampLabel.Text=wrong_txt;
         app.SavingLamp.Color = BAM_config.colormap.white;
     end
-
      %% set electrode for the first time
 %     [BAM_config, BAM_data, app] = fN_assign_electrode(BAM_config, BAM_data, app);
 end
-
+    
     %% set data location
     temp = strrep(datestr(datetime), ' ', '_');
     BAM_config.today = [temp(1:11), '_ss_', num2str(1)];

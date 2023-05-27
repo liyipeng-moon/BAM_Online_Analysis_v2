@@ -17,7 +17,7 @@ function [BAM_config,BAM_data, app] = fN_ao_connect(BAM_config, BAM_data, app)
 %% buffer channel
     for ii = 1:length(BAM_config.channel_name)
         interested_channel = BAM_config.channelidarr(ii);
-        [rr2(ii)] = AO_AddBufferingChannel(interested_channel,10000);
+        [rr2(ii)] = AO_AddBufferingChannel(interested_channel,5000);
     end
     if(min(abs(rr2))==0)
         BAM_config.IP.Buffered = 1;

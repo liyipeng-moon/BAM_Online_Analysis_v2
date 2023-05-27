@@ -37,5 +37,3 @@ tr_eye2 = round((combined_data.EYE2+5)*10);
 with_in_window_idx = abs(tr_eye2-cy)<=thres & abs(tr_eye1-cx)<=thres;
 combined_data.valid_time_series = zeros(size(tr_eye2));
 combined_data.valid_time_series(with_in_window_idx)=1;
-
-

@@ -1,7 +1,7 @@
 function [BAM_config,BAM_data] = fN_preregister_event_data(BAM_config,BAM_data,app)
 if(~strcmp(app.WhichDataset.Text,'NULL'))
     if(~isfield(BAM_data,'img_info'))
-        BAM_data.img_info = load([BAM_config.img_vault,'/',app.WhichDataset.Text,'.mat']);
+        BAM_data.img_info = load([BAM_config.img_vault,'/matfile_pool/',app.WhichDataset.Text,'.mat']);
     end
     img_num = length(BAM_data.img_info.image_info);
     psth_template = zeros(img_num, BAM_config.PSTH_end-BAM_config.PSTH_start+1);
