@@ -19,12 +19,20 @@ Developer: LiYipeng-Moon
 
 ### wait to add：
 
-1. Individual category color label （use img example）?
-2. Switch plot function(and pre-generating axis)
-3. User Defined Function, object space?
-4. Clear Channel Data
-5. refine psth
-6. Put waveform in plot function
+1. Clear Channel Data
+2. refine psth
+3. Put waveform in plot function
+
+2023.05.27\
+增加了示意图片，使用dataset自带的图片，使用dataset指定的颜色绘图
+实现了绘图方法的改变，现在可以在Bar PSTH之间丝滑切换了
+增加了User Defined Function，使用horizontal bar作为示意
+
+2023.05.26\
+根据房间选择IP，需要制定房间
+
+2023.05.01-2023-05.16\
+搭建好了南侧的实验室
 
 2023.04.07\
 增加了Spike波形信息的基本绘图
