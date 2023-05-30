@@ -3,7 +3,7 @@
 clear
 
 % Location
-BAM_config.remote_img_vault = 'Z:\动物房\Stimuli\LYP\Img_vault'; % nas
+BAM_config.remote_img_vault = 'Z:\Monkey\Stimuli\LYP\Img_vault'; % nas
 BAM_config.img_vault = 'Data\img_vault';
 BAM_config.AO_dir = 'C:\Program Files (x86)\AlphaOmega\AlphaLab SNR System SDK\MATLAB_SDK';
 
@@ -50,7 +50,6 @@ BAM_config.IP.Connected = 0;
 BAM_config.IP.DeviceFreeMode=0; % Run this when you have no AO connected
 BAM_config.IP.Buffered=0;
 
-
 %%  about saving
 BAM_config.is_saving=0;
 BAM_config.save_interval = 3;
@@ -79,7 +78,7 @@ BAM_config.PSTH_end = 1500;
 BAM_config.PSTH_width = (BAM_config.PSTH_end-BAM_config.PSTH_start)./BAM_config.PSTH_NumBin; % in ms
 BAM_config.LFP_start = -150;
 BAM_config.LFP_end = 300;
-BAM_config.eui_num=3;
+BAM_config.eui_num=2;
 BAM_config.LFP_plot_down_sample_rate=10;
 %% color parameters
 BAM_config.colormap.red = [1,0,0];

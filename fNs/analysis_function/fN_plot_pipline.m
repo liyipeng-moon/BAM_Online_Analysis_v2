@@ -8,7 +8,7 @@ if(~getfield(app,[BAM_data.plot_method, 'Button']).Value)
     [BAM_config, BAM_data, app] = fN_generating_axis(BAM_config, BAM_data, app);
 end
 
-report_plot_time=1;
+report_plot_time=0;
 
 LFP_plot_down_sample_rate = BAM_config.LFP_plot_down_sample_rate;
 % plotting parameters
@@ -18,10 +18,7 @@ LFP_time_series = resample(BAM_config.LFP_start:BAM_config.LFP_end-1,1,1*LFP_plo
 
 % plotting
     for pp = 1:BAM_config.eui_num
-        
         electrode_to_plot = str2num(getfield(app,['ListBox' num2str(pp)]).Value(2:end));
-        
-        
         tic
         LFP_average = zeros([length(BAM_data.img_info.category.name), BAM_config.LFP_end-BAM_config.LFP_start]);
         for cc = 1:length(BAM_data.img_info.category.name)

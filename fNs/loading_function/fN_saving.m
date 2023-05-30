@@ -3,7 +3,6 @@ function [BAM_config,BAM_data, app] = fN_saving(BAM_config, BAM_data, app)
 
     %% adding channel name accaording to electrode
     [BAM_config, BAM_data, app] = fN_add_buffer(BAM_config, BAM_data, app);
-
     [BAM_config, BAM_data, app] = fN_generating_axis(BAM_config, BAM_data, app);
     %% generate fake variable for storing data
     % generate data capture table
@@ -53,10 +52,12 @@ function [BAM_config,BAM_data, app] = fN_saving(BAM_config, BAM_data, app)
         
         if(GetSecs-saving_time>BAM_config.save_interval)
             app.delay_measurement.Text = ['miss ' ,num2str(1000*delay_time), 'ms to read data for ' ,num2str(BAM_config.save_interval), 's'];
-            tic;[BAM_config, BAM_data, app] = fN_category_grpstat(BAM_config, BAM_data, app);disp(['bar' num2str(toc)]);
-            tic;[BAM_config, BAM_data, app] = fN_plot_pipline(BAM_config, BAM_data, app);disp(['unit' num2str(toc)]);
-            saving_time=GetSecs;
             delay_time=0;
+            [BAM_config, BAM_data, app] = fN_check_clear_button(BAM_config, BAM_data, app);
+            [BAM_config, BAM_data, app] = fN_check_enable_button(BAM_config, BAM_data, app);
+            [BAM_config, BAM_data, app] = fN_category_grpstat(BAM_config, BAM_data, app);
+            [BAM_config, BAM_data, app] = fN_plot_pipline(BAM_config, BAM_data, app);
+            saving_time=GetSecs;
             %tic;save('test_data.mat',"BAM_data");disp(['save' num2str(toc)]);
             update_capture_mark(2)=0;
         else

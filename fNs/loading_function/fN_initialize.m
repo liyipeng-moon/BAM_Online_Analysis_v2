@@ -55,9 +55,13 @@ if(strcmp(mode_now, 'initial_all'))
     end
      %% set electrode for the first time
 %     [BAM_config, BAM_data, app] = fN_assign_electrode(BAM_config, BAM_data, app);
+    app.LfpClearFlag = zeros([1,BAM_config.MaxElectrode]);
+    app.SpikeClearFlag = zeros([BAM_config.MaxElectrode, BAM_config.MaxUnit+1]);
 end
     
     %% set data location
     temp = strrep(datestr(datetime), ' ', '_');
-    BAM_config.today = [temp(1:11), '_ss_', num2str(1)];
+    BAM_config.today = [temp(1:11)];
+
+    app.fid = fopen(['Data/', BAM_config.today, '.txt'], 'w');
 end

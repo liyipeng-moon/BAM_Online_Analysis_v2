@@ -8,3 +8,4 @@ for cc = 1:num_of_category
     BAM_data.UD_handle{pp,uu}.CData(cc,:)=BAM_data.img_info.category.color_category(cc,:);
 end
 yticklabels(BAM_data.plot_ax(pp,2+uu), BAM_data.img_info.category.name)
+set(BAM_data.UD_handle{pp,uu}, 'ButtonDownFcn', @(hobject,eventdata) subplotCallback(hobject,eventdata,'Spike',app,pp,uu))

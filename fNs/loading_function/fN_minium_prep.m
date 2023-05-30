@@ -60,7 +60,6 @@ function [BAM_data, location_progress] = fN_minium_prep(BAM_config, BAM_data, pd
                         end
                     end
                     imagesc(app.UIAxes, BAM_data.eye_in(1:BAM_data.big_ev_time.val(BAM_data.big_ev_time.location-1)))
-                    colorbar(app.UIAxes)
                 end
             end
 end

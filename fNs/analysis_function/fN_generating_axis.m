@@ -1,5 +1,5 @@
 function [BAM_config, BAM_data, app] = fN_generating_axis(BAM_config, BAM_data, app)
-
+%% plotting axis
     if(~strcmp(app.WhichDataset.Text,'NULL'))
         num_of_category = length(BAM_data.img_info.category.name);
         LFP_time_series = sort(resample(BAM_config.LFP_start:BAM_config.LFP_end-1,1,1*BAM_config.LFP_plot_down_sample_rate));
@@ -19,7 +19,11 @@ function [BAM_config, BAM_data, app] = fN_generating_axis(BAM_config, BAM_data, 
                 for cc = 1:length(BAM_data.img_info.category.name)
                     BAM_data.lfp_handle{pp}(cc).Color=BAM_data.img_info.category.color_category(cc,:);
                 end
+                title(BAM_data.plot_ax(pp,1), ['LFP'])
+                BAM_data.plot_ax(pp,1).Title.Color = BAM_config.colormap.red;
+                set(BAM_data.plot_ax(pp,1), 'ButtonDownFcn', @(hobject,eventdata) subplotCallback(hobject,eventdata,'LFP',app, pp))
                 set(BAM_data.plot_ax(pp,1),'YLim',[-1000,1000])
+                BAM_data.plot_ax(pp,1).Title.FontWeight='bold'
                 for uu = 1:5
                     BAM_data.plot_ax(pp,2+uu) = subplot(1,7,2+uu,'Parent', getfield(app,fig_idx));
                     %% generating bar axis
@@ -27,11 +31,12 @@ function [BAM_config, BAM_data, app] = fN_generating_axis(BAM_config, BAM_data, 
                         BAM_data.plot_method = 'Bar';
                         BAM_data.bar_handle{pp,uu} = bar(BAM_data.plot_ax(pp,2+uu),ones([1,num_of_category]));
                         BAM_data.bar_handle{pp,uu}.FaceColor = 'flat';
-
                         for cc = 1:num_of_category
                             BAM_data.bar_handle{pp,uu}.CData(cc,:)=BAM_data.img_info.category.color_category(cc,:);
                         end
                         xticklabels(BAM_data.plot_ax(pp,2+uu), BAM_data.img_info.category.name)
+                        set(BAM_data.bar_handle{pp,uu}, 'ButtonDownFcn', @(hobject,eventdata) subplotCallback(hobject,eventdata,'Spike',app,pp,uu,BAM_data))
+                       
                     end
                     %% generating PSTH axis
                     if(app.PSTHButton.Value)
@@ -41,13 +46,17 @@ function [BAM_config, BAM_data, app] = fN_generating_axis(BAM_config, BAM_data, 
                             BAM_data.PSTH_handle{pp,uu}(cc).Color=BAM_data.img_info.category.color_category(cc,:);
                         end
                         xlabel(BAM_data.plot_ax(pp,uu+2),'ms')
+                        set(BAM_data.PSTH_handle{pp,uu}, 'ButtonDownFcn', @(hobject,eventdata) subplotCallback(hobject,eventdata,'Spike',app,pp,uu,BAM_data))
                     end
                     
                     % generating user defined axis
                     if(app.UserDefinedButton.Value)
                         BAM_data.plot_method = 'UserDefined';
-                        BAM_data = fN_UD_generating_example(BAM_config,BAM_data,app,pp,uu);
+                        BAM_data = fN_UD_generating_example(BAM_config,BAM_data,app,pp,uu,BAM_data);
                     end
+                    title(BAM_data.plot_ax(pp,2+uu),['U', num2str(uu-1)]);
+                    BAM_data.plot_ax(pp,2+uu).Title.Color = BAM_config.colormap.red;
+                    BAM_data.plot_ax(pp,2+uu).Title.FontWeight='bold';
                 end
             end
     end
