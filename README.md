@@ -19,9 +19,12 @@ Developer: LiYipeng-Moon
 
 ### wait to add：
 
-1. Clear Channel Data
-2. Put waveform in plot function
-3. add time events and 'enable unit' function
+1. Put waveform in plot function
+   
+2023.05.30\
+改变了眼动判断触发的模式，更加稳定了
+添加了Clear功能，并且把功能集成到fig的点击上
+添加了Enable功能，并且把功能集成在fig的右键上
 
 2023.05.27\
 增加了示意图片，使用dataset自带的图片，使用dataset指定的颜色绘图
