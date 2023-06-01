@@ -1,26 +1,33 @@
 # BAM_online_analysis
 
-BAM(Blab Alphaomega for Monkey), is used for loading AlphaOmega online data and perform simple analyses during experiments. The current version supports a maximum of two electrodes.
+BAM(Blab Alphaomega for Monkey), is used for loading AlphaOmega online data and perform simple analyses during (visual) experiments. The current version supports a maximum of 16 electrodes, you can enable the exact channel you need
 
-Developer: LiYipeng-Moon 
+Developer: LiYipeng-Moon\
+Contact: moonl@pku.edu.cn
 
 ## How to use
 
 1. Connect online analysis PC to AlphaOmega via a network switch. Power up AO, prepare your experiment task and subject
-2. For passive viewing paradigm in monkeylogic, please check [PassiveViewing_in_ML](https://github.com/liyipeng-moon/PassiveViewing_in_ML). 
+2. For passive viewing paradigm in monkeylogic, please check [PassiveViewing_in_ML](https://github.com/liyipeng-moon/PassiveViewing_in_ML)
 3. Modify the parameter in the code below and run it to generate 'default_params.mat'.
     >  generate_params.m
 
 4. Open 'BAM_Online_Loading.mlapp', once 'Let's do some science' is shown, click BLAB logo and you will start saving and analyzing.
-5. You can choose desired electrode and function(add and describe it in mat file), and modify some parameter in real time.
+5. You can choose desired electrode and function(I put hbar example in the fN folder, fN_UD_generating_example and fN_UD_updating_example, and you can change it to scatter or anything you want), and modify some parameter in real time.
+   
+### Wait to add：
+
+1. Put waveform in plot function.
+2. Send image info through matlab SDK.
+3. Write a general framework for any kind of analysis.
    
 
 ## Update Journal:
 
-### wait to add：
+2023.05.31\
+修改了鼠标操作的按键模式
+调整了axis生成的方法，使得title颜色不会由于更换绘图方法而刷新
 
-1. Put waveform in plot function
-   
 2023.05.30\
 改变了眼动判断触发的模式，更加稳定了
 添加了Clear功能，并且把功能集成到fig的点击上
@@ -51,7 +58,6 @@ Developer: LiYipeng-Moon
 有关事件相关的功能在每次读取数据过程中完成，因此处理时间随着试次数的变化是常数\
 每一个条件的反应都按试次数*反应的方式存了下来，可以应用于后续的更多分析\
 可以指定特定类别的展示颜色
-
 
 2023.03.29\
 使图像更新更加平滑，且可以对外部参数改变进行反应
