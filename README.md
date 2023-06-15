@@ -24,6 +24,9 @@ Contact: moonl@pku.edu.cn
 
 ## Update Journal:
 
+2023.06.15\
+使用Network TCP的的方法传输刺激信息，只需要ML该刺激即可
+
 2023.05.31\
 修改了鼠标操作的按键模式
 调整了axis生成的方法，使得title颜色不会由于更换绘图方法而刷新
