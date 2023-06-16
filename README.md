@@ -24,6 +24,9 @@ Contact: moonl@pku.edu.cn
 
 ## Update Journal:
 
+2023.06.16\
+解决大部分由于TCP问题所导致的BUG，并使用TCP所传输的TrialData绘图
+
 2023.06.15\
 使用Network TCP的的方法传输刺激信息，只需要ML该刺激即可
 
