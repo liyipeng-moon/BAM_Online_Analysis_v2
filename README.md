@@ -18,11 +18,20 @@ Contact: moonl@pku.edu.cn
 ### Wait to add：
 
 1. Put waveform in plot function.
-2. Send image info through matlab SDK.
-3. Write a general framework for any kind of analysis.
-   
+2. Write a general framework for any kind of analysis.
+3. update image info communication, as now change dataset would laed to system crash sometimes, probably due to writing and loading conflict
+4. change eye movement progress time window
+5. refine eye movement judgement!
 
-## Update Journal:
+## Update Journal
+
+2023.12.14\
+上传全新版本文件，同步更新刺激程序。
+第一次上猴子测试
+
+2023.12.10\
+删除了基于TCP传刺激信息的方法，改成了使用共享文件夹的方案
+完善了图片示例的方案
 
 2023.06.16\
 解决大部分由于TCP问题所导致的BUG，并使用TCP所传输的TrialData绘图
