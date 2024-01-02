@@ -20,10 +20,15 @@ Contact: moonl@pku.edu.cn
 1. Put waveform in plot function.
 2. Write a general framework for any kind of analysis.
 3. update image info communication, as now change dataset would laed to system crash sometimes, probably due to writing and loading conflict
-4. change eye movement progress time window
+4. fix fN_new_session bug
 5. refine eye movement judgement!
 
 ## Update Journal
+
+2024.01.02\
+改变眼动轨迹成为滚动模式
+文件读写改成while try的模式，更加稳定
+改使用物理地址，更加稳定
 
 2023.12.14\
 上传全新版本文件，同步更新刺激程序。
