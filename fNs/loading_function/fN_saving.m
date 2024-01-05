@@ -20,42 +20,46 @@ function [BAM_config,BAM_data, app] = fN_saving(BAM_config, BAM_data, app)
     delay_time = 0;
     update_capture_mark=[0,0]; % the first correspond to update_dataset, the second correspond to plot
     while(1)
-            % acquiring data
-            tic            
-            for ii = 1:length(BAM_data.interedted_channel_idx)
-                [~,pdata(ii,:),datacapture(ii)] = AO_GetChannelData(BAM_data.interedted_channel_idx(ii));
-            end
-            delay_time = delay_time + toc;
-            
-            AO_ClearChannelData();
-            [BAM_data, BAM_data.location_progress] = fN_minium_prep(BAM_config,BAM_data, pdata,datacapture, app);
-            app.DataCapture.Data(:,2) = table(datacapture_history');
-            app.DataCapture.Data(:,3) = table(BAM_data.location_progress');
-            pause(BAM_config.read_interval/20)
+        % acquiring data
+        tic
+        
+        
+        for ii = 1:length(BAM_data.interedted_channel_idx)
+            [~,pdata(ii,:),datacapture(ii)] = AO_GetChannelData(BAM_data.interedted_channel_idx(ii));
+        end
+        toc
+        delay_time = delay_time + toc;
+        
+        AO_ClearChannelData();
+        [BAM_data, BAM_data.location_progress] = fN_minium_prep(BAM_config,BAM_data, pdata,datacapture, app);
+        
+        app.DataCapture.Data(:,2) = table(datacapture_history');
+        app.DataCapture.Data(:,3) = table(BAM_data.location_progress');
+        pause(BAM_config.read_interval/30)
 
-            if(min(update_capture_mark))
-                datacapture_history = max(datacapture_history,datacapture);
-            end
+        if(min(update_capture_mark))
+            datacapture_history = max(datacapture_history,datacapture);
+        end
 
-            [BAM_config, BAM_data, app, new_dataset] = fN_update_dataset(BAM_config, BAM_data, app);
-            if(new_dataset)
-                update_capture_mark=zeros(size(update_capture_mark));
-                while(GetSecs-load_interval_measure<BAM_config.read_interval)    
-                end
-                continue;
-            else
-                update_capture_mark(1)=1;
+        [BAM_config, BAM_data, app, new_dataset] = fN_update_dataset(BAM_config, BAM_data, app);
+        if(new_dataset)
+            update_capture_mark=zeros(size(update_capture_mark));
+            while(GetSecs-load_interval_measure<BAM_config.read_interval)    
             end
+            continue;
+        else
+            update_capture_mark(1)=1;
+        end
+
         [BAM_config, BAM_data, app] = fN_find_valid_trial(BAM_config, BAM_data, app);
         [BAM_config, BAM_data, app] = fN_stack_ev(BAM_config, BAM_data, app);
 
-        
         if(GetSecs-saving_time>BAM_config.save_interval)
             app.delay_measurement.Text = ['miss ' ,num2str(1000*delay_time), 'ms to read data for ' ,num2str(BAM_config.save_interval), 's'];
             delay_time=0;
             [BAM_config, BAM_data, app] = fN_check_clear_button(BAM_config, BAM_data, app);
             [BAM_config, BAM_data, app] = fN_check_enable_button(BAM_config, BAM_data, app);
-            [BAM_config, BAM_data, app] = fN_category_grpstat(BAM_config, BAM_data, app);
+            % [BAM_config, BAM_data, app] = fN_category_grpstat(BAM_config, BAM_data, app);
             [BAM_config, BAM_data, app] = fN_plot_pipline(BAM_config, BAM_data, app);
             saving_time=GetSecs;
             %tic;save('test_data.mat',"BAM_data");disp(['save' num2str(toc)]);

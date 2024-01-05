@@ -3,8 +3,8 @@
 clear
 
 % Location
-BAM_config.remote_img_vault = 'Z:\Monkey\Stimuli\LYP\Img_vault'; % nas
-BAM_config.img_vault = 'Data\img_vault';
+%BAM_config.remote_img_vault = 'Z:\Monkey\Stimuli\LYP\Img_vault'; % nas
+%BAM_config.img_vault = 'Data\img_vault';
 BAM_config.AO_dir = 'C:\Program Files (x86)\AlphaOmega\AlphaLab SNR System SDK\MATLAB_SDK';
 
 %
@@ -38,14 +38,16 @@ BAM_config.SR.LFP=1375;
 BAM_config.SR.AI=2750;
 
 %% AO IP Address
-room_number = 305;
-if(room_number == 306)
+room_number = 302;
+if(room_number == 302)
     BAM_config.IP.DSPMAC = 'A8:1B:6A:21:24:4B'; % Behind AO SnR
-    BAM_config.IP.PCMAC = 'bc:6a:29:e1:49:bf';% IP of online analysis PC
+    BAM_config.IP.PCMAC = '00:E0:4C:03:94:90';% IP of online analysis PC
+    % BAM_config.ML_IP = '10.129.168.39';
 else
     BAM_config.IP.DSPMAC = 'A8:1B:6A:14:74:2D'; % Behind AO SnR
     BAM_config.IP.PCMAC = 'bc:6a:29:e1:49:bf';% IP of online analysis PC
 end
+
 BAM_config.IP.Connected = 0;
 BAM_config.IP.DeviceFreeMode=0; % Run this when you have no AO connected
 BAM_config.IP.Buffered=0;
@@ -78,7 +80,7 @@ BAM_config.PSTH_end = 1500;
 BAM_config.PSTH_width = (BAM_config.PSTH_end-BAM_config.PSTH_start)./BAM_config.PSTH_NumBin; % in ms
 BAM_config.LFP_start = -150;
 BAM_config.LFP_end = 300;
-BAM_config.eui_num=2;
+BAM_config.eui_num=1;
 BAM_config.LFP_plot_down_sample_rate=10;
 %% color parameters
 BAM_config.colormap.red = [1,0,0];
@@ -88,6 +90,9 @@ BAM_config.colormap.white = [1,1,1];
 BAM_config.colormap.black = [0,0,0];
 BAM_config.colormap.grey = [0.3,0.3,0.3];
 BAM_config.colormap.unit = {[0.5,0.5,0.5],[0 1 0],[1 1 0],[0 1 1],[1 0 0]};
+
+
+BAM_config.ML_folder = '\\ml-pc\bam_communicate';
 
 BAM_config.bit_resolution = (2500000/(2^16))./20;
 

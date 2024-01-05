@@ -20,9 +20,10 @@ LFP_time_series = resample(BAM_config.LFP_start:BAM_config.LFP_end-1,1,1*LFP_plo
     for pp = 1:BAM_config.eui_num
         electrode_to_plot = str2num(getfield(app,['ListBox' num2str(pp)]).Value(2:end));
         tic
-        LFP_average = zeros([length(BAM_data.img_info.category.name), BAM_config.LFP_end-BAM_config.LFP_start]);
-        for cc = 1:length(BAM_data.img_info.category.name)
-            img_of_this_category = find(BAM_data.img_info.category.idx==cc);
+        
+        LFP_average = zeros([length(BAM_data.img_info.condition_nm), BAM_config.LFP_end-BAM_config.LFP_start]);
+        for cc = 1:length(BAM_data.img_info.condition_nm)
+            img_of_this_category = find(BAM_data.img_info.category_idx==cc);
             LFP_average = fN_category_mean_lfp(BAM_data.ev_LFP{electrode_to_plot}, img_of_this_category);
             set(BAM_data.lfp_handle{pp}(cc),'YData',resample(LFP_average,1,1*LFP_plot_down_sample_rate))
         end
@@ -46,7 +47,6 @@ LFP_time_series = resample(BAM_config.LFP_start:BAM_config.LFP_end-1,1,1*LFP_plo
             end
         end
         if(report_plot_time) disp(['plot all unit cost ' ,num2str(toc)]); end
-            
     end
 
 drawnow

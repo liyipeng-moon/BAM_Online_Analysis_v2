@@ -1,8 +1,8 @@
 function fN_plot_PSTH(BAM_data, spk_data,pp,uu, start_time)
 
-    num_of_category = length(BAM_data.img_info.category.name);
+    num_of_category = length(BAM_data.img_info.condition_nm);
     for cc = 1:num_of_category
-        category_now = find(BAM_data.img_info.category.idx==cc);
+        category_now = find(BAM_data.img_info.category_idx==cc);
         sample_num = sum(spk_data(category_now,1));
         spike_num_series = sum(spk_data(category_now, :));
         bins_now = BAM_data.PSTH_time_bins;
