@@ -12,6 +12,12 @@ function [BAM_data, location_progress] = fN_minium_prep(BAM_config, BAM_data, pd
                         BAM_data.big_ev_train = fN_stack_array(BAM_data.big_ev_train, ev_train);
                         BAM_data.big_ev_time = fN_stack_array(BAM_data.big_ev_time, ev_time);
                         location_progress(preprocessed_channel) = BAM_data.big_ev_train.location;
+                    case 'TTL'
+                        [ttl_train,ttl_time]=fN_sort_digital_port(pdata(preprocessed_channel,:), datacapture(preprocessed_channel),BAM_config.SR.DIO);
+                        ttl_time = ttl_time-BAM_config.StartingTime;
+                        BAM_data.big_eye_train = fN_stack_array(BAM_data.big_eye_train, ttl_train);
+                        BAM_data.big_eye_time = fN_stack_array(BAM_data.big_eye_time, ttl_time);
+                        location_progress(preprocessed_channel) = BAM_data.big_ev_train.location;
                     case 'SEG'
                         [spike_id, spike_time, spk_waveform, spk_number] = fN_sort_seg_port(pdata(preprocessed_channel,:),datacapture(preprocessed_channel),BAM_config.SR.SEG);
                         spike_time = spike_time - BAM_config.StartingTime;
@@ -38,28 +44,42 @@ function [BAM_data, location_progress] = fN_minium_prep(BAM_config, BAM_data, pd
 %                 end
                 end
                 % interpret eye signal
-                if(BAM_data.big_ev_train.location>10)
+                if(BAM_data.big_ev_train.location>5)
                     try
                         % note that eye signal is 1 by default
                         % so we need to figure the time when eye signal is 0
-                        all_break = find(BAM_data.big_ev_train.val==1002);
-                        all_break_time = BAM_data.big_ev_time.val(all_break);
-                        all_hold = find(BAM_data.big_ev_train.val==1001);
-                        all_hold_time = BAM_data.big_ev_time.val(all_hold);
+                        all_break = find(BAM_data.big_eye_train.val==1);
+                        all_break_time = BAM_data.big_eye_time.val(all_break);
+                        all_hold = find(BAM_data.big_eye_train.val==0);
+                        all_hold_time = BAM_data.big_eye_time.val(all_hold);
                         for hold_location = all_hold
                             last_break_location = max(all_break(all_break<hold_location));
                             if(isempty(last_break_location))
                                 % which means this session begins with 'break'
                                 last_break_location=1;
                             end
-                            BAM_data.eye_in(BAM_data.big_ev_time.val(last_break_location):BAM_data.big_ev_time.val(hold_location))=false;
+                            BAM_data.eye_in(BAM_data.big_eye_time.val(last_break_location):BAM_data.big_eye_time.val(hold_location))=false;
                         end
                         if(all_break(end)>all_hold(end))
                             % which means data ends with 'break'
-                            BAM_data.eye_in(BAM_data.big_ev_time.val(all_break(end)):BAM_data.big_ev_time.val(BAM_data.big_ev_time.location-1))=false;
+                            BAM_data.eye_in(BAM_data.big_eye_time.val(all_break(end)):end)=false;
+                        else
+                            BAM_data.eye_in(BAM_data.big_eye_time.val(all_hold(end)):end)=true;
                         end
                     end
-                    imagesc(app.UIAxes, BAM_data.eye_in(1:BAM_data.big_ev_time.val(BAM_data.big_ev_time.location-1)))
+                    
+                    [~, time44] = AO_GetLatestTimeStamp;
+                    TimeNow = int32(time44/44)-BAM_config.StartingTime;
+                    %update eye location
+                      % loc_now = BAM_data.big_eye_time.val(BAM_data.big_eye_time.location-1);
+                    % roll_length = 20000;
+                    % if(~isempty(BAM_data.eye_in>20000))
+                    %     imagesc(app.UIAxes, BAM_data.eye_in(1+loc_now-roll_length:loc_now))
+                    % else
+                        % loc_now = BAM_data.big_ev_time.val(1:loc_now);
+                        time_start = max(1, TimeNow-10000);
+                        imagesc(app.UIAxes, BAM_data.eye_in(time_start:TimeNow))
+                    % end
                 end
             end
 end

@@ -19,11 +19,15 @@ Contact: moonl@pku.edu.cn
 
 1. Put waveform in plot function.
 2. Write a general framework for any kind of analysis.
-3. update image info communication, as now change dataset would laed to system crash sometimes, probably due to writing and loading conflict
-4. fix fN_new_session bug
-5. refine eye movement judgement!
+
 
 ## Update Journal
+
+2024.01.09\
+改成了基于TTL判断眼动的分析模式，这使得离线分析时的事件更加干净
+得益于TTL的原理，眼动判断更加准确实时
+有关TTL判断眼动的细节，请见刺激程序的改动日志
+修改了fN_new_session的问题
 
 2024.01.02\
 改变眼动轨迹成为滚动模式

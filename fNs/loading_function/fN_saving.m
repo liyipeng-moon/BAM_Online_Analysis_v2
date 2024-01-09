@@ -6,6 +6,7 @@ function [BAM_config,BAM_data, app] = fN_saving(BAM_config, BAM_data, app)
     [BAM_config, BAM_data, app] = fN_generating_axis(BAM_config, BAM_data, app);
     %% generate fake variable for storing data
     % generate data capture table
+    
     app.DataCapture.Data = table(BAM_data.ChannelName',zeros([1,length(BAM_data.interedted_channel_idx)])',zeros([1,length(BAM_data.interedted_channel_idx)])', BAM_config.max_save_memory','VariableNames',{'Ch','DataC', 'Valid','Mem'});
     pdata=zeros(length(BAM_data.interedted_channel_idx),20000);
     datacapture=zeros([1,length(BAM_data.interedted_channel_idx)]);
@@ -22,12 +23,10 @@ function [BAM_config,BAM_data, app] = fN_saving(BAM_config, BAM_data, app)
     while(1)
         % acquiring data
         tic
-        
-        
         for ii = 1:length(BAM_data.interedted_channel_idx)
             [~,pdata(ii,:),datacapture(ii)] = AO_GetChannelData(BAM_data.interedted_channel_idx(ii));
         end
-        toc
+        
         delay_time = delay_time + toc;
         
         AO_ClearChannelData();
